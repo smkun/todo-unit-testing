@@ -1,70 +1,129 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Todo Application and API Testing
 
-In the project directory, you can run:
+This repository contains two projects:
+1. A React Todo application with Test Driven Development (TDD) using Jest.
+2. An Express CRUD API with TDD using Jest and Supertest.
 
-### `npm start`
+## Todo Application (React)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Instructions
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **Clone the repository** and navigate to the `todo-unit-testing` directory:
 
-### `npm test`
+    ```sh
+    git clone <repository_url>
+    cd todo-unit-testing
+    ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Install dependencies**:
 
-### `npm run build`
+    ```sh
+    npm install
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Run the tests**:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```sh
+    npm test
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Explanation
 
-### `npm run eject`
+The React Todo application allows users to add and delete todos. It follows the TDD approach, with tests written before the implementation.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Tests
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Test: renders the todo input and button**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    - **Description**: Checks if the input field and the "Add Todo" button are rendered correctly.
+    - **Expected Result**: The input field with the placeholder "Add a new todo" and the button with the text "Add Todo" should be present in the document.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. **Test: can add a new todo**
 
-## Learn More
+    - **Description**: Tests if a new todo can be added to the list.
+    - **Expected Result**: After typing "Learn TDD" in the input field and clicking the "Add Todo" button, the new todo should appear in the list.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Test: can delete a todo**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    - **Description**: Tests if a todo can be deleted from the list.
+    - **Expected Result**: After adding "Learn TDD" to the list and clicking the "Delete" button next to it, the todo should be removed from the list.
 
-### Code Splitting
+### Implementation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The main application file (`TodoApp.js`) manages the state of todos and provides functionality to add and delete todos.
 
-### Analyzing the Bundle Size
+## API Testing (Express)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Instructions
 
-### Making a Progressive Web App
+1. **Navigate to the `todo-api` directory**:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    ```sh
+    cd ../todo-api
+    ```
 
-### Advanced Configuration
+2. **Install dependencies**:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    ```sh
+    npm install
+    ```
 
-### Deployment
+3. **Run the tests**:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+    ```sh
+    npm test
+    ```
 
-### `npm run build` fails to minify
+### Explanation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The Express CRUD API provides endpoints to manage todos. It follows the TDD approach, with tests written before the implementation.
+
+#### Tests
+
+1. **Test: GET /todos**
+
+    - **Description**: Checks if the GET endpoint returns the list of todos.
+    - **Expected Result**: The endpoint should return a status code of 200 and an empty array initially.
+
+2. **Test: POST /todos**
+
+    - **Description**: Tests if a new todo can be added using the POST endpoint.
+    - **Expected Result**: After sending a POST request with a new todo (`{ todo: 'Learn TDD' }`), the endpoint should return a status code of 201 and the new todo.
+
+3. **Test: DELETE /todos/:index**
+
+    - **Description**: Tests if a todo can be deleted using the DELETE endpoint.
+    - **Expected Result**: After adding a new todo and sending a DELETE request to `/todos/0`, the endpoint should return a status code of 204 and the todo should be removed from the list.
+
+### Implementation
+
+The main application file (`app.js`) sets up the Express server and defines the routes for managing todos.
+
+---
+
+### Project Structure
+
+```
+/todo-unit-testing
+  ├── src
+  │   ├── setupTests.js        # Jest setup file
+  │   ├── TodoApp.js           # React Todo application
+  │   └── TodoApp.test.js      # Tests for React Todo application
+  ├── package.json             # Project configuration and scripts
+  └── ...
+
+/todo-api
+  ├── app.js                   # Express application
+  ├── app.test.js              # Tests for Express application
+  ├── package.json             # Project configuration and scripts
+  └── ...
+```
+
+### Expected Results
+
+- **React Todo Application Tests**: All tests should pass, verifying that the input field, add button, and delete functionality work as expected.
+- **Express CRUD API Tests**: All tests should pass, verifying that the API correctly handles GET, POST, and DELETE requests.
+
+This setup ensures both the React front-end and the Express back-end are fully tested and functioning correctly following the principles of TDD.
